@@ -14,9 +14,14 @@ public class SpawnTree : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            GameObject[] dirts = GameObject.FindGameObjectsWithTag("Dirt");
-            int randomNumber = Random.Range(0, dirts.Length);
-
+            //Grab all dirt gameObject
+            List<GameObject> dirts = new List<GameObject>(GameObject.FindGameObjectsWithTag("Dirt"));
+            if (dirts == null || dirts.Count == 0)
+            {
+                //Quit while loop after finished spawned
+                break;
+            }
+            int randomNumber = Random.Range(0, dirts.Count);
             //Change tag dirt that has planted to plant tag to avoid
             //grab previous position has planted
             dirts[randomNumber].tag = "Plant";
@@ -24,6 +29,5 @@ public class SpawnTree : MonoBehaviour
             Vector3 dirtPosition = dirts[randomNumber].transform.position;
             GameObject clone = Instantiate(prefabTree, dirtPosition, Quaternion.identity);
         }
-
     }
 }
