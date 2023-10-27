@@ -26,7 +26,6 @@ public class SpawnGridManager : MonoBehaviour
     private void PickAndSpawn(Vector3 positionToSpawn, Quaternion rotationToSpawn)
     {
         int randomIndex = Random.Range(0, tileGameAsset.Length);
-        print(randomIndex);
         GameObject clone = Instantiate(tileGameAsset[randomIndex], positionToSpawn, rotationToSpawn);
     }
 }

@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class SpawnHouse : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool canSpawn;
+    public GameObject prefabHosue;
+    private float offset = 0.1f;
+    private Vector3 spawnPosition;
+    private void OnTriggerEnter(Collider other)
     {
-        
+        //Spawn house in dirt or desert
+        if (other.CompareTag("Desert"))
+        {
+            canSpawn = true;
+            spawnPosition.x = other.transform.position.x;
+            spawnPosition.y = other.transform.position.y + offset;
+            spawnPosition.z = other.transform.position.z;
+            GameManager.instance.point += 2;
+        }
+        else if (other.CompareTag("Dirt"))
+        {
+            canSpawn = true;
+            spawnPosition.x = other.transform.position.x;
+            spawnPosition.y = other.transform.position.y + offset;
+            spawnPosition.z = other.transform.position.z;
+            GameManager.instance.point += 10;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0) && canSpawn)
+        {
+            GameObject clone = Instantiate(prefabHosue, spawnPosition, Quaternion.identity);
+        }
     }
 }
