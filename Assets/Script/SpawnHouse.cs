@@ -8,7 +8,10 @@ public class SpawnHouse : MonoBehaviour
     public GameObject prefabHosue;
     private float offset = 0.1f;
     private Vector3 spawnPosition;
+
     private float addPoint;
+
+    private GameObject dirt;
     private void OnTriggerEnter(Collider other)
     {
         //Spawn house in dirt or desert
@@ -19,6 +22,9 @@ public class SpawnHouse : MonoBehaviour
             spawnPosition.y = other.transform.position.y + offset;
             spawnPosition.z = other.transform.position.z;
             addPoint = 2;
+
+            //Set to null reference
+            dirt = null;
         }
         else if (other.CompareTag("Dirt"))
         {
@@ -27,11 +33,17 @@ public class SpawnHouse : MonoBehaviour
             spawnPosition.y = other.transform.position.y + offset;
             spawnPosition.z = other.transform.position.z;
             addPoint = 10;
+            
+            //Assign dirt gameObject reference if mouse is on dirt gameObject
+            dirt = other.gameObject;
         }
         else
         {
             canSpawn = false;
             addPoint = 0;
+
+            //Set to null reference
+            dirt = null;
         }
     }
 
@@ -42,6 +54,10 @@ public class SpawnHouse : MonoBehaviour
             //Spawn and add point and base desert tile or dirt tile
             GameObject clone = Instantiate(prefabHosue, spawnPosition, Quaternion.identity);
             GameManager.instance.point += addPoint;
+            if (dirt != null)
+            {
+                dirt.tag = "Plant";
+            }
         }
     }
 }

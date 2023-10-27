@@ -15,11 +15,13 @@ public class SpawnTree : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             GameObject dirt = GameObject.FindGameObjectWithTag("Dirt");
+
             //Finished spawn if all dirt have filled
             if (dirt == null)
             {
                 break;
             }
+            
             //Change tag dirt that has planted to plant tag to avoid
             //grab previous position has planted
             dirt.tag = "Plant";
