@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnGridManager : MonoBehaviour
+public class SpawnTileManager : MonoBehaviour
 {
     public GameObject[] tileGameAsset;
     public int gridX;
